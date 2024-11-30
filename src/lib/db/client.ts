@@ -1,7 +1,7 @@
 import { drizzle } from "drizzle-orm/expo-sqlite";
-import { openDatabaseSync } from "expo-sqlite/next";
+import { openDatabaseSync } from "expo-sqlite";
 
-const expo = openDatabaseSync("exercises6424.db", {
-  enableChangeListener: true,
+const expo = openDatabaseSync("finance.db", {
+    enableChangeListener: true,
 });
 export const db = drizzle(expo);
