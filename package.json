@@ -9,7 +9,10 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "drizzle:generate": "drizzle-kit generate",
+    "drizzle:drop": "drizzle-kit drop",
+    "build:apk": "eas build --platform android --profile preview"
   },
   "jest": {
     "preset": "jest-expo"
@@ -33,6 +36,7 @@
     "expo-symbols": "~0.2.0",
     "expo-system-ui": "~4.0.4",
     "expo-web-browser": "~14.0.1",
+    "globby": "^14.0.2",
     "nativewind": "^4.1.23",
     "react": "18.3.1",
     "react-dom": "18.3.1",
