@@ -12,6 +12,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.nikitaa01.finanzasnikita"
     },
+    "androidNavigationBar": {
+      "backgroundColor": "#1F2937"
+    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/adaptive-icon.png",

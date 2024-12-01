@@ -2,7 +2,7 @@ import type { Config } from "drizzle-kit";
 import { globbySync } from "globby";
 import { join } from "path";
 
-const schemaFiles = globbySync("./src/lib/db/schema/*.ts").map((file) =>
+const schemaFiles = globbySync("./src/lib/schema/db/*.ts").map((file) =>
     join(process.cwd(), file)
 );
 

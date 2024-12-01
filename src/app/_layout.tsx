@@ -1,30 +1,58 @@
 import { db } from "@/lib/db/client";
-import { entries } from "@/lib/db/schema/entries";
 import migrations from "@/lib/drizzle/migrations";
 import "@/styles/index.css";
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
-import { Stack } from "expo-router";
+import { Link, Stack, usePathname } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import { Pressable, Text, View } from "react-native";
 import "react-native-reanimated";
 
 export default function RootLayout() {
-    const migration = useMigrations(db, migrations);
+  const migration = useMigrations(db, migrations);
+  const pathname = usePathname();
 
-    useEffect(() => {
-        if (migration.success)
-            db.insert(entries)
-                .values({ name: "Hello, World!", id: 1 })
-                .execute();
-    }, [migration.success]);
-
+  if (!migration.success) {
     return (
-        <>
-            <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="+not-found" />
-            </Stack>
-            <StatusBar style="auto" />
-        </>
+      <View className="flex-1 bg-gray-900 justify-center items-center">
+        <Text className="text-white">No se ha podido migrar la Database</Text>
+      </View>
     );
+  }
+
+  return (
+    <View className="flex-1 bg-gray-900">
+      <StatusBar style="light" />
+      <Stack
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "rgb(31 41 55)",
+          },
+          contentStyle: {
+            backgroundColor: "rgb(17 24 39)",
+          },
+          title: "",
+          headerRight: () => (
+            <Link href="/" asChild>
+              <Pressable className="justify-center items-center active:opacity-75 ml-auto">
+                <Text className="text-white">Settings</Text>
+              </Pressable>
+            </Link>
+          ),
+          headerLeft: () =>
+            pathname !== "/" && (
+              <Link href="../" asChild>
+                <Pressable className="justify-center items-center active:opacity-75">
+                  <Text className="text-white">Back</Text>
+                </Pressable>
+              </Link>
+            ),
+        }}
+      >
+        <Stack>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </Stack>
+    </View>
+  );
 }
